@@ -23,7 +23,12 @@ def preprocess(ds: datasets.DatasetDict,
                 "attention_mask": input_feature["attention_mask"],
                 "labels": label["input_ids"],
                 }
-    tokenized_dataset: datasets.DatasetDict
+    tokenized_dataset = ds.map(
+            preprocess_function,
+            remove_columns=["id", "url", "title", "summary", "text"],
+            batched=True,
+            batch_size=128
+            )
     return tokenized_dataset
 
 def get_collator(tokenizer: AutoTokenizer,
