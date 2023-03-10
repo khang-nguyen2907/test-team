@@ -1,6 +1,10 @@
 import json
 from datasets import load_dataset
-from transformers import AutoTokenizer
+from transformers import (
+        AutoTokenizer,
+        AutoModelForSeq2SeqLM,
+        DataCollatoForSeq2Seq
+        )
 
 def get_dataset(dataset_name: str,
                 name: str = "japanese") -> datasets.DatasetDict:
@@ -22,4 +26,11 @@ def preprocess(ds: datasets.DatasetDict,
     tokenized_dataset: datasets.DatasetDict
     return tokenized_dataset
 
-
+def get_collator(tokenizer: AutoTokenizer,
+                 model: AutoMode):
+    data_collator = DataCollatoForSeq2Seq(
+        tokenizer,
+        model=model,
+        return_tensors="pt"
+    )
+    return data_collator
