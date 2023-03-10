@@ -8,7 +8,7 @@ from transformers import (
 
 def get_dataset(dataset_name: str,
                 name: str = "japanese") -> datasets.DatasetDict:
-    ds: dataset.DatasetDict
+    ds = load_dataset(dataset_name, name=name)
     return ds
 
 def preprocess(ds: datasets.DatasetDict,
